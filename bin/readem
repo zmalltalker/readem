@@ -12,7 +12,6 @@ set :root, File.expand_path(File.dirname(__FILE__) + "/../")
 set :run, true
 
 get "/" do
-  home_dir = ENV["HOME"]
   readmes = Pathname.glob("#{home_dir}/Projects/*/README.md")
   readme_dirs = readmes.map(&:dirname)
   @local_dirnames = readme_dirs.map {|dir| dir.to_s.split("/").last}
@@ -24,4 +23,8 @@ get "/:dir" do
   readme_data = readme.read
   @markup = Makeup::Markup.new.render("README.md", readme_data)
   erb :readme
+end
+
+def home_dir
+  ENV["HOME"]
 end
