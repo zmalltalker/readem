@@ -3,7 +3,7 @@
 
 require "sinatra"
 require "pathname"
-require "makeup/markup"
+require "redcarpet"
 require "readem/version"
 
 set :bind, "0.0.0.0"
@@ -21,7 +21,8 @@ end
 get "/:dir" do
   readme = Pathname("#{home_dir}/Projects/#{params[:dir]}/README.md")
   readme_data = readme.read
-  @markup = Makeup::Markup.new.render("README.md", readme_data)
+  markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :space_after_headers => true)
+  @markup = markdown.render(readme_data)
   erb :readme
 end
 
