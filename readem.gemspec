@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["marius.mathiesen@gmail.com"]
   spec.description   = %q{Serve the READMEs in your ~/Projects in a web browser}
   spec.summary       = %q{Run it, and see all your READMEs.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/zmalltalker/readem"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

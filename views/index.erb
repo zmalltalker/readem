@@ -1,6 +1,9 @@
+<h1>All your READMEs are now belong to us</h1>
 <ul>
 <% for dir in @local_dirnames do %>
   <li><a href="/<%= dir %>"><%= dir %></a></li>
 <% end %>
-
 </ul>
+
+
+<p>Served by readem <%= Readem::VERSION %></p>

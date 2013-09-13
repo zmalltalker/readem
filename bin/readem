@@ -4,20 +4,23 @@
 require "sinatra"
 require "pathname"
 require "makeup/markup"
+require "readem/version"
 
 set :bind, "0.0.0.0"
 set :port, 1337
 set :root, File.expand_path(File.dirname(__FILE__) + "/../")
+set :run, true
 
 get "/" do
-  readmes = Pathname.glob("/home/marius/Projects/*/README.md")
+  home_dir = ENV["HOME"]
+  readmes = Pathname.glob("#{home_dir}/Projects/*/README.md")
   readme_dirs = readmes.map(&:dirname)
   @local_dirnames = readme_dirs.map {|dir| dir.to_s.split("/").last}
   erb :index
 end
 
 get "/:dir" do
-  readme = Pathname("/home/marius/Projects/#{params[:dir]}/README.md")
+  readme = Pathname("#{home_dir}/Projects/#{params[:dir]}/README.md")
   readme_data = readme.read
   @markup = Makeup::Markup.new.render("README.md", readme_data)
   erb :readme
